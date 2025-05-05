@@ -45,3 +45,6 @@ vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
 
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 5
+
+-- make yark also copy to clipboard
+vim.opt.clipboard:append("unnamedplus")
