@@ -204,6 +204,7 @@ return {
 		local servers = {
 			bashls = {},
 			marksman = {},
+			phpactor = {},
 			-- clangd = {},
 			gopls = {},
 			pyright = {},
