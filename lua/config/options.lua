@@ -48,3 +48,9 @@ vim.opt.scrolloff = 5
 
 -- make yark also copy to clipboard
 vim.opt.clipboard:append("unnamedplus")
+
+if vim.g.neovide then
+	vim.g.neovide_scale_factor = 1.4 -- Default value, adjust as needed
+	-- 光标动画速度 (0.0 到 1.0，较低的值更快)
+	vim.g.neovide_cursor_animation_length = 0.08
+end
