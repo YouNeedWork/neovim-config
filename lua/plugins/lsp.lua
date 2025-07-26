@@ -63,6 +63,9 @@ return {
 				-- Find references for the word under your cursor.
 				map("gr", require("fzf-lua").lsp_references, "[G]oto [R]eferences")
 
+				-- Show hover
+				-- map("i", require("fzf-lua").lsp.hover, "Show function signtures")
+
 				-- Jump to the implementation of the word under your cursor.
 				--  Useful when your language has ways of declaring types without an actual implementation.
 				map("gI", require("fzf-lua").lsp_implementations, "[G]oto [I]mplementation")
@@ -152,6 +155,9 @@ return {
 					map("<leader>th", function()
 						vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
 					end, "[T]oggle Inlay [H]ints")
+					map("<leader>lr", function()
+						vim.lsp.buf.rename()
+					end, "[R]ename")
 				end
 			end,
 		})
@@ -202,10 +208,12 @@ return {
 		--  - settings (table): Override the default settings passed when initializing the server.
 		--        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
 		local servers = {
+			kotlin_lsp = {},
+			zls = {},
 			bashls = {},
 			marksman = {},
 			phpactor = {},
-			-- clangd = {},
+			clangd = {},
 			gopls = {},
 			pyright = {},
 			rust_analyzer = {},

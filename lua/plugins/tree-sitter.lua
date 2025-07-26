@@ -1,24 +1,68 @@
 return {
-    "nvim-treesitter/nvim-treesitter",
-    build = ":TSUpdate",
-    config = function () 
-      local configs = require("nvim-treesitter.configs")
-
-      configs.setup({
-          ensure_installed = {"cpp","python", "c", "lua", "vim", "vimdoc", "query", "javascript", "html", "zig", "rust", "go", "php" },
-          sync_install = false,
-          highlight = { enable = true },
-          indent = { enable = true },  
---          incremental_selection = {
-            --FIXME: fix this keys bindings. not working for now.
---            enable = true,
---            keymaps = {
---                init_selection = "<Space>",  -- Ctrl+Space 开始选择
---                node_incremental = "<S-Space>",  -- Shift+Tab 扩大选择
---                scope_incremental = "<C-s>",   -- Ctrl+s 选择范围扩大
---                node_decremental = "<BS>",     -- 退格键减小选择
---           },
---         }
-        })
-    end
- }
+	"nvim-treesitter/nvim-treesitter",
+	lazy = false,
+	branch = "main",
+	build = ":TSUpdate",
+	opts = {
+		install_dir = vim.fn.stdpath("data") .. "/site",
+	},
+	config = function()
+		local ensure_installed =
+			{
+				"c3",
+				"zig",
+				"php",
+				"move",
+				"rust",
+				"vimdoc",
+				"dyn",
+				"javascript",
+				"typescript",
+				"c",
+				"go",
+				"lua",
+				"jsdoc",
+				"bash",
+				"pug",
+				"css",
+				"kotlin",
+			}, vim.api.nvim_create_autocmd("User", {
+				pattern = "TSUpdate",
+				callback = function()
+					require("nvim-treesitter.parsers").dyn = {
+						install_info = {
+							url = "https://github.com/17robots/tree-sitter-dyn",
+							branch = "neovim",
+							queries = "queries",
+						},
+					}
+				end,
+			})
+		vim.filetype.add({ extension = { dyn = "dyn" } })
+		require("nvim-treesitter").install(ensure_installed)
+		vim.api.nvim_create_autocmd("FileType", {
+			pattern = {
+				"c3",
+				"zig",
+				"php",
+				"move",
+				"rust",
+				"vimdoc",
+				"dyn",
+				"javascript",
+				"typescript",
+				"c",
+				"go",
+				"lua",
+				"jsdoc",
+				"bash",
+				"pug",
+				"css",
+				"kotlin",
+			},
+			callback = function()
+				vim.treesitter.start()
+			end,
+		})
+	end,
+}
