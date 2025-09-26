@@ -3,6 +3,7 @@ return {
 	lazy = false,
 	branch = "main",
 	build = ":TSUpdate",
+	auto_install = false,
 	opts = {
 		install_dir = vim.fn.stdpath("data") .. "/site",
 	},
@@ -41,7 +42,6 @@ return {
 				"bash",
 				"css",
 				"kotlin",
-				"dyn",
 			},
 			callback = function()
 				vim.treesitter.start()
